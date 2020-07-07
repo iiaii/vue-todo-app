@@ -1,32 +1,57 @@
 <template>
   <div class="inputBox shadow">
-      <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
-      <!-- <button v-on:click="addTodo">add</button> -->
+    <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
+    <!-- <button v-on:click="addTodo">add</button> -->
 
-      <span class="addContainer" v-on:click="addTodo">
-        <i class="fas fa-plus addBtn"></i>
-      </span>
+    <span class="addContainer" v-on:click="addTodo">
+    <i class="fas fa-plus addBtn"></i>
+    </span>
+
+
+    <Modal v-if="showModal" @close="showModal = false">
+        <!--
+            you can use custom content here to overwrite
+            default content
+        -->
+        <h3 slot="header">
+            잠깐!
+            <i class="closeModalBtn fas fa-times" v-on:click="showModal = false"></i>
+        </h3>
+        
+        <div slot="body">
+            할 일을 입력해주세요~
+        </div>
+        
+    </Modal>
   </div>
 </template>
 
 <script>
+import Modal from './common/Modal.vue'
+
 export default {
-    data: function() {
+    data() {
         return {
             newTodoItem: "",
+            showModal: false,
         }
     },
     methods: {
-        addTodo: function() {
+        addTodo() {
             if(this.newTodoItem !== '') {
                 // this.$emit('이벤트이름', 인자1, 인자2)
                 this.$emit('addTodoItem', this.newTodoItem);
                 this.clearInput();
+            } else {
+                this.showModal = !this.showModal;
             }
         },
-        clearInput: function() {
+        clearInput() {
             this.newTodoItem = '';
         }
+    },
+    components: {
+        Modal
     }
 }
 </script>
@@ -55,5 +80,8 @@ input:focus {
 .addBtn {
     color: white;
     vertical-align: middle;
+}
+.closeModalBtn {
+    color: #545a58;
 }
 </style>
