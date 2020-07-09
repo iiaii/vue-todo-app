@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>
-    <!-- <TodoInput v-on:하위 컴포넌트에서 발생시킨 이벤트 이름="현재 컴포넌트의 메서드 명"></TodoInput> -->
     <TodoInput></TodoInput>
-    <!-- <TodoList v-bind:내려보낼 속성 = "현재 위치의 컴포넌트 데이터 속성"></TodoList> -->
     <TodoList>
     </TodoList>
     <TodoFooter>
